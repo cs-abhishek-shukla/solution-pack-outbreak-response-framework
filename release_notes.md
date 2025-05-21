@@ -1,118 +1,72 @@
 ## What's New
 
 >[!NOTE]
->This solution pack requires FortiSOAR `v7.6.0` and later.
+>This solution pack requires FortiSOAR `v7.6.1` and later.
 
-### Outbreak Management - A New Look!
+### Enhanced Performance of Threat Intel Feed Ingestion
 
-Get ready to experience a revamped Outbreak Management, designed to streamline your investigation workflow and enhance your visibility of your environment to respond and remediate these Outbreak Alerts effectively and efficiently.
+Experience a significant boost in performance during the ingestion of Threat Intel Feeds for Outbreak Alerts:
 
-When you click Outbreak Management in the navigation menu, you’re greeted with an intuitive layout featuring these powerful tabs:
+**Bulk Ingestion**: The individual IOC creation process in playbooks has been replaced with a Bulk Ingestion step. This enhancement leverages a connector action to trigger a bulk ingestion playbook that batches IOCs into groups and processes them asynchronously. This approach ensures faster and more efficient processing of threat intelligence feeds.
 
-- **Dashboard**: Stay informed with a dynamic Outbreak Response Overview, showcasing:
-    - Outbreak Status (Last 30 Days)
-    - KEVs For Outbreak CVEs (Last 30 Days)
-    - Recent Outbreaks Detected
-    - Top 10 Outbreak Threat Feeds
-    - …and so much more!
+### Experience Enhancements
 
-- **Outbreaks**: Access comprehensive records of all outbreak alerts at your fingertips.
+- **Navigation menu update**
+  - The **Outbreak Management** menu now features a brand new icon![](./docs/res/icon-outbreak.svg).
+  - Outbreak Management no longer has the hunt rules and dashboard tabs.
 
-- **Hunt Rules**: Explore and manage Fortinet Fabric Rules, Sigma Rules, and YARA Rules linked to your outbreak-specific response solution packs.
+- **Dashboard Enhancements**
+  - Outbreak Response Framework now has a dedicated dashboard that can be launched from the **Outbreak Management** menu.
+  - The dashboard now showcases a new data representation &ndash; *Outbreak by Severity (Last 30 days)*.
 
-#### Improved Solution Pack Configuration Experience
+- **Simplified Alert Details**
+  - Hunt rules now appear under a separate tab on the outbreak alert details page.
 
-The wizard has received several key upgrades, making your configuration process seamless:
+### Wizard Enhancements
 
-- Each integration now has its dedicated configuration tab for a more organized setup experience and ensures that key configuration details are present.
-  
-- Take control of your security operations by automating investigation frequencies and tailoring your investigation windows to fit your needs.
-  
-- Never miss an update! Opt for automatic installation and get notified when outbreak-specific response solution packs are installed.
+- **Configure Integrations**
+  - NIST National Vulnerability Database connector configuration is optional now.
+  - Wizard now also verifies whether the **Mark as Default Configuration** option has been selected for all chosen integrations.
 
-- A brand-new **Ingest Now** button on the *Summary* page allows you to install the latest outbreak-specific response solution packs instantly.
+### Automated Updates for Outbreak Alerts
 
-#### Improved Investigation Flow
+A new feature automatically updates critical information for Outbreak Alerts with the statuses *New* or *Tracking*. This is achieved using the **Update Outbreak Alert Details** playbook, which updates key details such as CVEs, background information, and descriptions. The playbook is scheduled to run daily, ensuring that alerts remain current and accurate.
 
-- Introducing enhanced automation with the following new schedules to streamline outbreak response tasks:
+### Fields Mapping in Threat Intel Feeds
 
-    - `Investigate_Outbreak-Alerts`: Automatically identify new and ongoing outbreak alerts and forward them for thorough investigation using advanced threat-hunting tools.
-    - `Outbreak_Alert-Time-Frame-Analysis`: Efficiently identify and deactivate outdated outbreak alerts based on their investigation time frame.
-    - `Outbreak_Automated-Deployment-Outbreak-Alert-Response-Solution-Pack`: Seamlessly install the latest outbreak alert solutions pack (from the past X days) with automated email notifications.
-    - `Outbreak_Ingest-Tracking-Outbreak-CVEs-and-IOCs`: Retrieve outbreak alert CVEs (KVE) from NIST and IOCs from Fortinet FortiGuard, focusing on those marked as ‘Tracking’.
+- Updated the mapping of the *Type* field in Threat Intel Feeds to accurately reflect the specific hash type (*`FileHash-MD5`*, *`FileHash-SHA1`*, and *`FileHash-SHA256`*) instead of using the generic type *`FileHash`*.
 
-- As an investigation result, we now create incidents in place of alerts.
+### Enhanced CVE Details with EPSS Scores
 
-#### Pluggable Threat Hunt Framework
+The following fields have been mapped into CVE records to provide enhanced threat context:  
 
-The Pluggable Threat Hunting framework integrates threat detection tools, such as FortiSIEM, FortiAnalyzer, QRadar, and Splunk, for efficient outbreak alert threat hunting and integrates the following hunting categories:
+- `EPSS Score`
+- `EPSS Percentile`
+- `Known To Be Used In Ransomware Campaigns`
 
-- Fabric Hunting
-- Indicator of Compromise (IoC) Hunting
-- Signature Hunting
+### NIST NVD Connector Action Isolation
 
-#### Widget Additions
+The **NIST NVD Connector** action, responsible for fetching CVE details, has been isolated into a dedicated playbook named **Update CVE Details from NIST**. This playbook includes the setting `Ignore Error` set to *Yes* to handle intermittent API issues more gracefully.  
 
-We’ve integrated cutting-edge widgets to execute your playbooks with a single click and track the execution with an intuitive, user-friendly wizard.
+The **Update CVE Details from NIST** playbook is referenced as the final step in the **Find Known Exploited Vulnerabilities (KEV) CVEs** playbook. This change addresses the intermittent reliability issues with the NIST NVD APIs and ensures uninterrupted processing of CVE data.
 
-- Playbook Execution Wizard
-- Playbook Buttons
+Refer to the section [Retrieving CVE Information from NIST](./docs/usage.md#retrieving-cve-information-from-nist) to learn how to update this information manually.
 
-#### Picklist Enhancements
+### Key Store Enhancements
 
-The following picklists and the containing items were renamed to provide clearer context and more specific terminology, reflecting its focus on outbreak-related alerts. This change enhances user understanding and aligns with the outbreak management system's terminology, making it easier for analysts to identify and manage relevant outbreak alerts.
+- Key Store records associated with Outbreaks are now tagged with **`Outbreak Alert`**
 
-- The picklist *Rule Type* has been renamed to **Threat Hunt Rule Type**.
+### Schedule Changes for Solution Pack Deployment
 
-- The picklist *Record Status* has been renamed to **Outbreak Alert Status**
-    - This picklist has additional options - `New` and `Deactivate` to clearly indicate outbreak alerts' statuses.
-    - The picklist item *Active* has been renamed to **Tracking** to mark that an outbreak alert is ready to investigate.
+The crontab schedule for **Outbreak_Automated-Deployment-Outbreak-Alert-Response-Solution-Pack** has been adjusted to run **every 3 hours**. This ensures the timely deployment of new outbreak alert solution packs.  
 
-#### New Key Store Records
+These solution packs, created upon receiving outbreak alerts from FortiGuard, include YARA rules, Sigma rules, and other detection mechanisms designed to facilitate the hunting and identification of outbreaks within a network.
 
-- The addition of the following Record Sets for use by the Configuration Wizard imparts a modular structure to threat hunt integrations and automatic installation of outbreak-specific response solution packs:
-    - `outbreak-threat-hunt-tools`
-    - `outbreak-threat-hunt-tools-params`
-    - `outbreak-auto-install-time-frame`
+### Playbook Enhancements and Cleanups
 
-- Effortlessly manage your threat hunt integrations. Each integration and its precise hunt parameters are stored in the `outbreak-threat-hunting-workflow-config` key store record, ensuring a streamlined and efficient threat-hunting process.
+- **Investigate Outbreak**
+  - The playbook has been optimized to remove redundancy.
+  - The limit on fetching and investigating IoC records has been removed. Now all IOCs linked with Outbreak Alert are fetched and investigated.
 
-- Enjoy seamless automation with the installation of outbreak-specific response solution packs. All associated parameters are stored in the `outbreak-alert-config` key store record, providing an easy setup for optimal protection.
-
->[!NOTE]
-> The `outbreak-threat-hunting-workflow-config` and the `outbreak-alert-config` key store records are created *after* the Outbreak Response Framework configuration completes.
-
-#### Playbook Enhancements
-
-- The following hunt playbooks are created within SOAR Framework's **05 - Hunt** playbook collection to consolidate all hunt-related playbooks in one location. This reorganization simplifies navigation and management by keeping all hunt playbooks together, which streamlines processes and reduces confusion:
-
-    - IOC Hunting
-    - IOC Hunting – FortiSIEM
-    - IOC Hunting - FortiSIEM > Fetch Incident Associated Events
-    - IOC Hunting - FortiAnalyzer
-    - IOC Hunting - FortiAnalyzer > Device Log Search
-    - IOC Hunting - Splunk
-    - IOC Hunting - IBM QRadar
-    - Threat Hunting (Fortinet Fabric) - FortiSIEM
-    - Threat Hunting (Fortinet Fabric) - FortiSIEM > Fetch Incident
-    - Threat Hunting (Fortinet Fabric) - FortiSIEM > Create Incident
-    - Threat Hunting (Fortinet Fabric) - FortiSIEM > Fetch Associated Incident Events
-    - Threat Hunting (Fortinet Fabric) - FortiAnalyzer
-    - Threat Hunting (Fortinet Fabric) - FortiAnalyzer > Get Related Event Assets
-    - Threat Hunting (Signature Based) - Splunk
-    - Threat Hunting (Signature Based) - Splunk > Create Inbound Incident
-    - Threat Hunting (Signature Based) - Splunk > Update Notable Fields
-    - Threat Hunting (Signature Based) - IBM QRadar
-    - Threat Hunting (Signature Based) - Get Events - FortiSIEM
-    - Threat Hunting (Signature Based) - Get Events - FortiAnalyzer
-    - Threat Hunting (Signature Based)  - FortiAnalyzer > Log Search
-
-#### Miscellaneous Updates
-
-We have streamlined our integrations by removing the following connectors from the Outbreak Response Framework:
-
-- *Fortinet FortiGate*: Playbooks are now natively available in the SOAR Framework solution pack.
-- *Azure Log Analytics*: Usage data indicates minimal engagement.
-- *Jira* and *ServiceNow*: Integration no longer contributes to investigative processes.
-
-The Ticketing/ITSM integration page has been removed from the Configuration Wizard.
+- **Retrieve CVEs and IOCs**
+  - The step *Investigate Outbreak Alert* has been renamed to **Ingest Outbreak CVEs and IOCs Details** to better convey its functionality.

@@ -16,9 +16,14 @@ The following is an ideal flow to use the **Outbreak Response Framework** soluti
 3. Install individual *Outbreak Response* solution packs.
     
 >[!Note]
->The [**EXAMPLE: Outbreak Response - Progress MOVEit Transfer SQL Injection Vulnerability**](#example-outbreak-response---progress-moveit-transfer-sql-injection-vulnerability) section explains the response of **Outbreak Response Framework** solution pack to *Progress MOVEit Transfer SQL Injection Vulnerability* by way of an example.
+>The [**EXAMPLE: Outbreak Response - Progress MOVEit Transfer SQL Injection Vulnerability**](#example-outbreak-response---progress-moveit-transfer-sql-injection-vulnerability) section explains the **Outbreak Response Framework** solution pack's response to *Progress MOVEit Transfer SQL Injection Vulnerability* by way of an example.
 
-4. **Fetch CVEs for KEVs**: Using [NIST](https://docs.fortinet.com/fortisoar/connectors/nist-nvd) integration FortiSOAR checks if an associated CVE is tagged as a KEV. Once found, it creates CVE records in the vulnerability module and links those records to outbreak alerts.
+4. **Fetch CVEs for KEVs**: Using [NIST](https://docs.fortinet.com/fortisoar/connectors/nist-nvd) integration FortiSOAR checks if an associated CVE is tagged as a KEV. Once found, it creates CVE records in the vulnerability module and links those records to outbreak alerts. Following image shows a CVE record and the information it contains for enhanced threat context:
+
+    ![Information contained in a CVE Record](./res/cve-threat-context-information.png)
+
+> [!Note]
+> Due to API issues from NIST, the CVEs and their subsequent information may not update immediately. Refer to the section [Retrieving CVE Information from NIST](#retrieving-cve-information-from-nist) for updating CVEs.
 
 5. **Ingest IOCs as Threat Feeds**: IOCs associated with the Outbreak are ingested as threat feeds in FortiSOAR using Fortinet FortiGuard Outbreak connector.
 
@@ -50,6 +55,9 @@ The following is an ideal flow to use the **Outbreak Response Framework** soluti
 
     ![Mitigation](./res/mitigation.png)
 
+> [!Note]
+> The process of updating critical information, for Outbreak Alerts with the statuses *New* or *Tracking*, is now automated. The playbook **Update Outbreak Alert Details** updates key details such as CVEs, background information, and descriptions and is scheduled to run daily. You can review the schedule `Outbreak_Alert_Fetch_Latest_Details` to modify the run frequency.
+
 ## Example: Outbreak Response - Progress MOVEit Transfer SQL Injection Vulnerability
 
 Before performing the steps outlined in this section, we recommend setting the global variable `Demo_mode` to `true`. Once done, the following steps generate example data for a better understanding of this solution packs functionality.
@@ -60,7 +68,7 @@ Before performing the steps outlined in this section, we recommend setting the g
 
 3. Install **Outbreak Response - Progress MOVEit Transfer SQL Injection Vulnerability**.
 
-4. Navigate to the **Outbreak Management** menu and select **Outbreaks** tab to view the following screen:
+4. Navigate to the **Outbreak Management** menu and select **Outbreak Alerts** to view the following screen:
 
     ![](./res/outbreak-alerts-moveit.png)
 
@@ -78,9 +86,9 @@ Before performing the steps outlined in this section, we recommend setting the g
 
     ![](./res/outbreak-alerts-moveit-more-details.png)
 
-    The following information becomes available as the **Outbreak Response** solution pack creates the following:
+    More information becomes available as the **Outbreak Response** solution pack creates the following:
 
-    1. **Outbreak Alerts**: The outbreak alert contain the following
+    1. **Outbreak Alerts**: An outbreak alert contains the following:
 
         - Outbreak Alert details
 
@@ -101,6 +109,20 @@ Before performing the steps outlined in this section, we recommend setting the g
 9. Select the **Dashboard** tab, under *Outbreak Management*, to view following information:
 
     ![Outbreak Dashboard](./res/dashboard-outbreak-response-overview.png)
+
+## Retrieving CVE Information from NIST
+
+The CVE information from NIST is fetched as per a schedule - `Outbreak_Ingest-Tracking-Outbreak-CVEs-and-IOCs`. The schedule triggers the playbook **Tracking Outbreak: Retrieve CVEs and IOCs**. The schedule runs daily to retrieve and update this information later.
+
+This playbook references the playbook **Get Outbreak CVEs and IOCs Details** to retrieve and update the relevant CVEs.
+
+You can manually run this playbook to fetch and update the CVE information.
+
+1. Select outbreak alerts from Outbreak Alerts page.
+2. Click **Execute** > **Get Outbreak CVEs and IOCs Details**.
+
+> [!Note]
+> It is possible that the information is not updated if the NIST API is facing issues. Check the playbook logs for more information.
 
 # Next Steps
 
