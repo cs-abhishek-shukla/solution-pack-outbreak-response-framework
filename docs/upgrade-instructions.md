@@ -3,15 +3,19 @@
 
 # Upgrade Instructions
 
-This section points out some actions to take after the upgrade to **Outbreak Response Framework** `v2.1.0`.
+This section points out some actions to take after the upgrade to **Outbreak Response Framework** `v2.1.0` and later:
 
-> **IMPORTANT**: Follow these instructions closely and do not skip.
+> [!IMPORTANT]
+> Follow these instructions closely and do not skip.
 
 ## Prerequisites
 
 - Upgrade Fortinet FortiAnalyzer connector to `v3.3.0` or later
 
 ## After Upgrade
+
+> [!Important]
+> After an upgrade, you must run the **Outbreak Response Framework** configuration wizard again.
 
 ### Deleting Duplicate Threat Feeds
 

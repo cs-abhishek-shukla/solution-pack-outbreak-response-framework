@@ -65,27 +65,28 @@ The **Outbreak Response Framework** solution pack contains the following resourc
 |:-------------------------------------:|
 
 
-| Playbook Name                                                                       | Description                                                                                                                                     |
-|:------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------|
-| > Automated Deployment > Get Outbreak CVEs and IOC Details                          | Retrieve Outbreak CVEs and IOC details, and set the last investigation time for newly installed outbreak alerts.                                |
-| > Investigate Outbreak Alert                                                        | Investigate the Outbreak Alert using various threat-hunting tools to understand the scope and impact of the threat                              |
-| Automated Deployment: Outbreak Alert Response Solution Pack                         | Automate Installation of Recent Outbreak Alert Solutions Pack (Last x Days) with Email Notification                                             |
-| Bulk Ingest Outbreak Alert IOCs ![new](./res/icon-new.svg)                          | Bulk Ingest Outbreak Alert IOCs on the basis of Outbreak Tag                                                                                    |
-| Configure Outbreak Response Framework                                               | Set up the outbreak response framework, configure global value key store entries, and set up schedules for use in outbreak investigations.      |
-| Create IOCs as Threat Intel Feeds                                                   | Obtain the IOCs from Fortinet FortiGuard and create the threat feeds in the Threat Intel module for the specified outbreak alert.               |
-| Find and Link Affected Assets                                                       | Examine vulnerabilities associated with the outbreak CVEs, and if any are found, identify the affected assets and link them to the outbreak.    |
-| Find Known Exploited Vulnerabilities (KEV) CVEs                                     | Fetch Known Exploited Vulnerabilities (KEV) CVEs from NIST and create CVE record.                                                               |
-| Get Outbreak CVEs and IOCs Details                                                  | Obtain outbreak alert CVE details from NIST and IOC information from Fortinet FortiGuard.                                                       |
-| Investigate Outbreak                                                                | Investigate the Outbreak Alert using various threat-hunting tools to understand the scope and impact of the threat                              |
-| Investigate Outbreaks (Type All)                                                    | Investigate New and Tracking outbreaks across various SIEM tools, then take action to remediate and mitigate them.                              |
-| Link Related Threat Intel Feeds ![new](./res/icon-new.svg)                          | This playbook links the unlinked Threat Intel Feeds to the Outbreak Alert                                                                       |
-| Outbreak Alert Time Frame Analysis                                                  | Identify and deactivate outbreak alerts whose investigation time frame has expired.                                                             |
-| Remediate and Mitigate Outbreak Response Alert                                      | Block all types of outbreak response alert indicators on the firewall according to their block status and take steps to mitigate them.          |
-| Reset Outbreak to Tracking                                                          | Set the deactivated and resolved outbreak alert to tracking                                                                                     |
-| Stop Outbreak Alert Record Tracking                                                 | Update the status of the outbreak alert to "Resolved," and include the resolved notes and resolved reason in the associated outbreak alert.     |
-| Tracking Outbreak: Retrieve CVEs and IOCs                                           | Fetch outbreak alert CVEs (KVE) from NIST and IOCs from Fortinet FortiGuard, specifically focusing on those marked with a status of 'Tracking'. |
-| Update CVE Details from NIST ![new](./res/icon-new.svg)                             | Fetches CVE Details from NIST and Updates the CVE record                                                                                        |
-| Update Outbreak Alert Details ![new](./res/icon-new.svg)                            | Fetches and Updates the Outbreak Alert's Details                                                                                                |
+| Playbook Name                                                                                        | Description                                                                                                                                     |
+|:-----------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------|
+| > Automated Deployment > Get Outbreak CVEs IOCs and Threat Actors Details![](./res/icon-renamed.svg) | Retrieve Outbreak CVEs and IOC details, and set the last investigation time for newly installed outbreak alerts.                                |
+| > Investigate Outbreak Alert                                                                         | Investigate the Outbreak Alert using various threat-hunting tools to understand the scope and impact of the threat                              |
+| Automated Deployment: Outbreak Alert Response Solution Pack                                          | Automate Installation of Recent Outbreak Alert Solutions Pack (Last x Days) with Email Notification                                             |
+| Bulk Ingest Outbreak Alert IOCs                                                                      | Bulk Ingest Outbreak Alert IOCs on the basis of Outbreak Tag                                                                                    |
+| Configure Outbreak Response Framework                                                                | Set up the outbreak response framework, configure global value key store entries, and set up schedules for use in outbreak investigations.      |
+| Create IOCs as Threat Intel Feeds                                                                    | Obtain the IOCs from Fortinet FortiGuard and create the threat feeds in the Threat Intel module for the specified outbreak alert.               |
+| Find and Link Affected Assets                                                                        | Examine vulnerabilities associated with the outbreak CVEs, and if any are found, identify the affected assets and link them to the outbreak.    |
+| Link or Create CVEs![](./res/icon-renamed.svg)                                                       | Fetch Known Exploited Vulnerabilities (KEV) CVEs from NIST and create CVE record.                                                               |
+| Get Outbreak CVEs and IOCs Details                                                                   | Obtain outbreak alert CVE details from NIST and IOC information from Fortinet FortiGuard.                                                       |
+| Investigate Outbreak                                                                                 | Investigate the Outbreak Alert using various threat-hunting tools to understand the scope and impact of the threat                              |
+| Investigate Outbreaks (Type All)                                                                     | Investigate New and Tracking outbreaks across various SIEM tools, then take action to remediate and mitigate them.                              |
+| Link Related Threat Intel Feeds                                                                      | This playbook links the unlinked Threat Intel Feeds to the Outbreak Alert                                                                       |
+| Deactivate Expired Outbreak Alerts                                                                   | Identify and deactivate outbreak alerts whose investigation time frame has expired.                                                             |
+| Remediate and Mitigate Outbreak Response Alert                                                       | Block all types of outbreak response alert indicators on the firewall according to their block status and take steps to mitigate them.          |
+| Reset Outbreak to Tracking                                                                           | Set the deactivated and resolved outbreak alert to tracking                                                                                     |
+| Stop Outbreak Alert Record Tracking                                                                  | Update the status of the outbreak alert to "Resolved," and include the resolved notes and resolved reason in the associated outbreak alert.     |
+| Fetch and Update Active Outbreak Alerts CVEs and IOCs![](./res/icon-renamed.svg)                     | Fetch outbreak alert CVEs (KVE) from NIST and IOCs from Fortinet FortiGuard, specifically focusing on those marked with a status of 'Tracking'. |
+| Update CVE Details from NIST                                                                         | Fetches CVE Details from NIST and Updates the CVE record                                                                                        |
+| Fetch and Update Outbreak Alert Details![](./res/icon-renamed.svg)                                   | Fetches and Updates the Outbreak Alert's Details                                                                                                |
+| Get Outbreak Alert Threat Actors and Link Threat Reports![](./res/icon-new.svg)                      | Associates alerts with threat actors and relevant reports, installs required response packs, and syncs updated data.                            |
 
 | 05 - Hunt |
 |:---------:|
@@ -124,13 +125,13 @@ The **Outbreak Response Framework** solution pack contains the following resourc
 
 ## Schedules
 
-| Name                                                                  | Description                                                                                                                             |
-|:----------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| `Investigate_Outbreak-Alerts`                                         | Automatically identifies new and ongoing outbreak alerts and forwards them for thorough investigation using advanced threat-hunting tools. |
-| `Outbreak_Alert-Time-Frame-Analysis`                                  | Efficiently identifies and deactivates outdated outbreak alerts based on their investigation time frame.                                   |
-| `Outbreak_Automated-Deployment-Outbreak-Alert-Response-Solution-Pack` | Seamlessly installs the latest outbreak alert solution packs (from the past X days) with automated email notifications.                  |
-| `Outbreak_Ingest-Tracking-Outbreak-CVEs-and-IOCs`                     | Retrieve outbreak alert CVEs (KVE) from NIST and IOCs from Fortinet FortiGuard, focusing on those marked as `Tracking`.                 |
-| `Outbreak_Alert_Fetch_Latest_Details`                                 | Fetches and Updates the Outbreak Alerts with the latest details.                                                                        |
+| Name                                                                                  | Description                                                                                                                                |
+|:--------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| `Deactivate-Expired-Outbreak-Alerts`![](./res/icon-renamed.svg)                       | Efficiently identifies and deactivates outdated outbreak alerts based on their investigation time frame.                                   |
+| `Investigate_Outbreak-Alerts`                                                         | Automatically identifies new and ongoing outbreak alerts and forwards them for thorough investigation using advanced threat-hunting tools. |
+| `Ingestion_Outbreak-Alert-Response-Solution-Pack`![](./res/icon-renamed.svg)          | Seamlessly installs the latest outbreak alert solution packs (from the past X days) with automated email notifications.                    |
+| `Ingestion_Outbreak-Alert-Latest-CVEs-and-IOCs-Details`![](./res/icon-renamed.svg)    | Retrieve outbreak alert CVEs (KVE) from NIST and IOCs from Fortinet FortiGuard, focusing on those marked as `Tracking`.                    |
+| `Ingestion_Fetch-and-Update-Outbreak-Alert-Latest-Details`![](./res/icon-renamed.svg) | Fetches and Updates the Outbreak Alerts with the latest details.                                                                           |
 
 # Next Steps
 

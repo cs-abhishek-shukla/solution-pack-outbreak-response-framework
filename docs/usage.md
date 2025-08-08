@@ -5,8 +5,8 @@
 
 In this section, we detail the various user flows to understand the scenarios where this solution pack’s automation may address your needs.
 
-## Outbreak Response Framework Flowchart 
- 
+## Outbreak Response Framework Flow
+
 The following is an ideal flow to use the **Outbreak Response Framework** solution pack:
 
 1. Install **Outbreak Response Framework** solution pack.
@@ -112,7 +112,7 @@ Before performing the steps outlined in this section, we recommend setting the g
 
 ## Retrieving CVE Information from NIST
 
-The CVE information from NIST is fetched as per a schedule - `Outbreak_Ingest-Tracking-Outbreak-CVEs-and-IOCs`. The schedule triggers the playbook **Tracking Outbreak: Retrieve CVEs and IOCs**. The schedule runs daily to retrieve and update this information later.
+The CVE information from NIST is fetched as per a schedule - `Outbreak_Ingest-Tracking-Outbreak-CVEs-and-IOCs`. The schedule triggers the playbook **Fetch and Update Active Outbreak Alerts CVEs and IOCs**. The schedule runs daily to retrieve and update this information later.
 
 This playbook references the playbook **Get Outbreak CVEs and IOCs Details** to retrieve and update the relevant CVEs.
 

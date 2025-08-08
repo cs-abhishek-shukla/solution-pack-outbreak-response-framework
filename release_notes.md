@@ -3,70 +3,101 @@
 >[!NOTE]
 >This solution pack requires FortiSOAR `v7.6.1` and later.
 
-### Enhanced Performance of Threat Intel Feed Ingestion
+Enhance your outbreak response playbook with expanded threat context, smarter automation, and fine-tuned control—delivered in the latest update to the Outbreak Response Framework.
 
-Experience a significant boost in performance during the ingestion of Threat Intel Feeds for Outbreak Alerts:
-
-**Bulk Ingestion**: The individual IOC creation process in playbooks has been replaced with a Bulk Ingestion step. This enhancement leverages a connector action to trigger a bulk ingestion playbook that batches IOCs into groups and processes them asynchronously. This approach ensures faster and more efficient processing of threat intelligence feeds.
-
-### Experience Enhancements
-
-- **Navigation menu update**
-  - The **Outbreak Management** menu now features a brand new icon![](./docs/res/icon-outbreak.svg).
-  - Outbreak Management no longer has the hunt rules and dashboard tabs.
-
-- **Dashboard Enhancements**
-  - Outbreak Response Framework now has a dedicated dashboard that can be launched from the **Outbreak Management** menu.
-  - The dashboard now showcases a new data representation &ndash; *Outbreak by Severity (Last 30 days)*.
-
-- **Simplified Alert Details**
-  - Hunt rules now appear under a separate tab on the outbreak alert details page.
+---
 
 ### Wizard Enhancements
 
-- **Configure Integrations**
-  - NIST National Vulnerability Database connector configuration is optional now.
-  - Wizard now also verifies whether the **Mark as Default Configuration** option has been selected for all chosen integrations.
+- Additional options on the **Installation & Notification** screen:
+  - You can specify the time window for fetching and installing recent outbreak response solution packs &mdash; streamlining automation and reducing noise from outdated threats.
 
-### Automated Updates for Outbreak Alerts
+  - You can also choose to install all outbreak response solution packs released to date, providing full historical coverage when needed.
 
-A new feature automatically updates critical information for Outbreak Alerts with the statuses *New* or *Tracking*. This is achieved using the **Update Outbreak Alert Details** playbook, which updates key details such as CVEs, background information, and descriptions. The playbook is scheduled to run daily, ensuring that alerts remain current and accurate.
+- The wizard now supports configuring the connector on an agent.
 
-### Fields Mapping in Threat Intel Feeds
+---
 
-- Updated the mapping of the *Type* field in Threat Intel Feeds to accurately reflect the specific hash type (*`FileHash-MD5`*, *`FileHash-SHA1`*, and *`FileHash-SHA256`*) instead of using the generic type *`FileHash`*.
+### Dashboard Enhancements
 
-### Enhanced CVE Details with EPSS Scores
+In the **Outbreak Response Overview** dashboard
 
-The following fields have been mapped into CVE records to provide enhanced threat context:  
+- Removed the Outbreak Trend chart to streamline visual focus.
+- Updated the Recent Outbreaks Detected chart:
+  - Added new data columns for better visibility.
+  - Reorganized the order and resized column lengths for improved readability.
 
-- `EPSS Score`
-- `EPSS Percentile`
-- `Known To Be Used In Ransomware Campaigns`
+---
 
-### NIST NVD Connector Action Isolation
+### Expanded Field Coverage
 
-The **NIST NVD Connector** action, responsible for fetching CVE details, has been isolated into a dedicated playbook named **Update CVE Details from NIST**. This playbook includes the setting `Ignore Error` set to *Yes* to handle intermittent API issues more gracefully.  
+Introduced two new fields for enriched mapping of FortiGuard Labs data:
 
-The **Update CVE Details from NIST** playbook is referenced as the final step in the **Find Known Exploited Vulnerabilities (KEV) CVEs** playbook. This change addresses the intermittent reliability issues with the NIST NVD APIs and ensures uninterrupted processing of CVE data.
+- **Threat Actors**: Map adversaries linked to the outbreak.
+- **Threat Reports**: Reference original threat research or campaign details.
 
-Refer to the section [Retrieving CVE Information from NIST](./docs/usage.md#retrieving-cve-information-from-nist) to learn how to update this information manually.
+---
 
-### Key Store Enhancements
+### New Automation Actions
 
-- Key Store records associated with Outbreaks are now tagged with **`Outbreak Alert`**
+- **Fetch Latest CVEs and IOC Details**: In List View, this new action updates **all outbreak alerts** with status `New` or `Tracking` by pulling the latest:
 
-### Schedule Changes for Solution Pack Deployment
+  - CVE entries (including KEV mapping)
+  - IOC intelligence
 
-The crontab schedule for **Outbreak_Automated-Deployment-Outbreak-Alert-Response-Solution-Pack** has been adjusted to run **every 3 hours**. This ensures the timely deployment of new outbreak alert solution packs.  
+- **Fetch and Update Outbreak Alert Details**: Available when alerts are selected, this action performs a focused update on the selected outbreak alerts.
 
-These solution packs, created upon receiving outbreak alerts from FortiGuard, include YARA rules, Sigma rules, and other detection mechanisms designed to facilitate the hunting and identification of outbreaks within a network.
+---
 
-### Playbook Enhancements and Cleanups
+### Improved Detail View Experience
 
-- **Investigate Outbreak**
-  - The playbook has been optimized to remove redundancy.
-  - The limit on fetching and investigating IoC records has been removed. Now all IOCs linked with Outbreak Alert are fetched and investigated.
+A new **Summary** tab centralizes critical alert information like:
 
-- **Retrieve CVEs and IOCs**
-  - The step *Investigate Outbreak Alert* has been renamed to **Ingest Outbreak CVEs and IOCs Details** to better convey its functionality.
+- Description, Background, and Severity
+- CVE and IOC details
+- FortiGuard URL and Cybersecurity Framework alignment
+- Threat Actors mapped via FortiGuard Labs
+
+---
+
+### Playbook Enhancements
+
+- A new playbook **Get Outbreak Alert Threat Actors and Link Threat Reports** automatically associates alerts with threat actors and relevant reports, installs required response packs, and syncs updated data.
+
+- The following playbooks have been renamed for more clarity on their intended actions:
+  - *Outbreak Alert Time Frame Analysis* has been renamed to **Deactivate Expired Outbreak Alerts**
+  - *Update Outbreak Alert Details* has been renamed to **Fetch and Update Outbreak Alert Details**
+  - *Tracking Outbreak: Retrieve CVEs and IOCs* has been renamed to **Fetch and Update Active Outbreak Alerts CVEs and IOCs**                     |
+  - *Find Known Exploited Vulnerabilities (KEV) CVEs* has been renamed to **Link or Create CVEs**
+  - *> Automated Deployment > Get Outbreak CVEs and IOC Details* has been renamed to **> Automated Deployment > Get Outbreak CVEs IOCs and Threat Actors Details**
+
+#### Cleanup and Improvements
+
+- **Deprecated**: The `Update CVE Details from NIST` playbook has been removed.
+- **Manual trigger**: The `Fetch and Update Outbreak Alert Details` now starts manually.
+- **Schedule removed**: The `Outbreak_Alert_Fetch_Latest_Details` schedule has been removed and now handled via a configuration automation
+
+---
+
+### Schedule & Framework Updates
+
+- The following schedules have been renamed:
+  - *`Outbreak_Alert_Fetch_Latest_Details`* has been renamed to **Ingestion_Fetch-and-Update-Outbreak-Alert-Latest-Details**
+  - *`Outbreak_Automated-Deployment-Outbreak-Alert-Response-Solution-Pack`* has been renamed to **Ingestion_Outbreak-Alert-Response-Solution-Pack**
+  - *`Outbreak_Alert-Time-Frame-Analysis`* has been renamed to **Deactivate-Expired-Outbreak-Alerts**
+  - *`Outbreak_Ingest-Tracking-Outbreak-CVEs-and-IOCs`* has been renamed to **Ingestion_Outbreak-Alert-Latest-CVEs-and-IOCs-Details**
+
+- The **Configure Outbreak Response Framework** playbook now performs the following tasks:
+
+- Triggers **Ingest Known Exploited Vulnerabilities (KEV) CVEs**
+- Activates `Investigate_Outbreak-Alerts` (now inactive by default post-install)
+- Creates the following automation schedules:
+
+  - `Ingestion_Fetch-and-Update-Outbreak-Alert-Latest-Details`
+  - `Ingestion_Outbreak-Alert-Response-Solution-Pack`
+  - `Ingestion_Outbreak-Alert-Latest-CVEs-and-IOCs-Details`
+  - `Deactivate-Expired-Outbreak-Alerts`
+
+---
+
+With this update, SOC teams can respond faster to outbreaks by working with **real-time vulnerability and threat actor intelligence**, directly from FortiGuard Labs. Save time. Reduce noise. Improve context.
