@@ -3,7 +3,7 @@
 
 # Triggering and Monitoring Playbooks
 
-To facilitate manual investigations of outbreak alerts, the Outbreak Response Framework integrates a **Playbook Buttons** widget. This widget enables analysts to quickly locate and trigger the _Investigate Outbreak Alert_ playbook directly from the Playbook Execution Wizard interface. The Playbook Execution Wizard allows users to monitor the status of the investigation by tracking executing tasks and reviewing the playbook execution history.
+To facilitate manual investigations of outbreak alerts, the Outbreak Response Framework integrates a **Playbook Buttons** widget. This widget enables analysts to quickly locate and trigger the _Investigate Outbreak Alert_ playbook directly from the *Playbook Execution Wizard* interface. The *Playbook Execution Wizard* allows users to monitor the status of the investigation by tracking executing tasks and reviewing the playbook execution history.
 
 1. **Accessing the Playbook Buttons Widget**
    The **Playbook Buttons** widget appears when you open an outbreak alert listed on the **Outbreaks** tab.
@@ -28,9 +28,9 @@ To facilitate manual investigations of outbreak alerts, the Outbreak Response Fr
 
         ![Playbook Execution Wizard](./res/pb-as-button.gif)
 
-   - For detailed information about configuring and using the Playbook Execution Wizard, refer [Playbook Execution Wizard Documentation](https://github.com/fortinet-fortisoar/widget-playbook-execution-wizard/tree/release/1.0.0).
+   - For detailed information about configuring and using the *Playbook Execution Wizard*, refer [Playbook Execution Wizard Documentation](https://github.com/fortinet-fortisoar/widget-playbook-execution-wizard/tree/release/1.0.0).
 
-The integration of the Playbook Buttons widget and the Playbook Execution Wizard significantly enhances the ability of SOC analysts to manually investigate outbreak alerts. By providing direct access to essential playbooks and real-time monitoring of the investigation process, these tools streamline the manual investigation workflow, ensuring timely and effective responses to emerging threats.
+The integration of the Playbook Buttons widget and the *Playbook Execution Wizard* significantly enhances the ability of SOC analysts to manually investigate outbreak alerts. By providing direct access to essential playbooks and real-time monitoring of the investigation process, these tools streamline the manual investigation workflow, ensuring timely and effective responses to emerging threats.
 
 # Next Steps
 

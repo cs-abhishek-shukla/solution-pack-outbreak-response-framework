@@ -3,7 +3,7 @@
 
 # Usage
 
-In this section, we detail the various user flows to understand the scenarios where this solution pack’s automation may address your needs.
+In this section, we detail the various user flows to understand the scenarios where this solution pack's automation may address your needs.
 
 ## Outbreak Response Framework Flow
 
@@ -57,6 +57,52 @@ The following is an ideal flow to use the **Outbreak Response Framework** soluti
 
 > [!Note]
 > The process of updating critical information, for Outbreak Alerts with the statuses *New* or *Tracking*, is now automated. The playbook **Update Outbreak Alert Details** updates key details such as CVEs, background information, and descriptions and is scheduled to run daily. You can review the schedule `Outbreak_Alert_Fetch_Latest_Details` to modify the run frequency.
+
+## Dashboards
+
+The **Dashboards** section of the *Outbreak Response Framework* provides SOC analysts with a comprehensive view of ongoing security outbreaks, threat intelligence, and vulnerability tracking. These interactive dashboards enable swift analysis, monitoring, and response to emerging security threats.
+
+### Outbreak Response Overview
+
+![Outbreak Response Overview Dashboard](./res/dashboard-outbreak-response-overview.png)
+
+- **Purpose**: Provides a high-level summary of outbreak alerts, helping analysts understand the current threat landscape.
+- **Key Features**:
+
+  - **Outbreak Alerts by Status**: Displays the total number of outbreaks, categorized by their current status (e.g., Tracking, Resolved).
+  - **Outbreak Alerts by Severity**: Breaks down outbreaks into different severity levels (Critical, High, Medium, Low), enabling analysts to prioritize responses.
+  - **Outbreak Indicators of Compromise (IOCs)**: Shows a distribution of IOCs by type (IP addresses, file hashes, domains, URLs, etc.), helping analysts identify the nature of threats.
+  - **Monitored CVEs by Severity**: Provides an overview of CVEs being tracked, grouped by their severity to highlight the most urgent vulnerabilities.
+  - **CVE Exploitation by Year**: Visualizes the distribution of CVEs by the year they were exploited, assisting analysts in identifying emerging vulnerabilities.
+
+### Threat Intel Overview
+
+![Threat Intel Overview Dashboard](./res/threat-intel-overview.png)
+
+- **Purpose**: Offers an overall view of the threat intelligence data, helping analysts assess the breadth of ongoing threats and outbreak activities.
+- **Key Features**:
+
+  - **Outbreak Alerts by Status (Last 30 Days)**: Displays the number of outbreaks detected in the last 30 days and their current status (e.g., Tracking, Resolved).
+  - **Outbreak Alerts IOCs by Type**: Provides a breakdown of outbreak IOCs (IP Address, FileHash-MD5, FileHash-SHA256, Domain, URL, etc.), offering a detailed look at the types of threats.
+  - **Threat Feeds Ingested**: Tracks the number of threat feeds ingested within a set time frame (e.g., last 24 hours, last 3 months), offering visibility into the volume of incoming threat data.
+  - **Threat Reports**: Categorizes incoming threat reports by source (e.g., FortiGuard Events, Outbreak Alerts), enabling analysts to correlate data and gain insights into emerging threats.
+  - **Monitored CVEs by Severity**: Shows the CVEs being monitored, categorized by severity to help analysts focus on critical vulnerabilities.
+
+### Threat Intel Insights Report
+
+![Threat Intel Insights Report Dashboard](./res/threat-intel-insights-report.png)
+
+- **Purpose**: Provides deeper insights into ongoing threats and outbreak data, supporting detailed analysis for response and mitigation.
+- **Key Features**:
+
+  - **FortiGuard Outbreaks by Severity**: Displays the number of FortiGuard-related outbreaks, broken down by severity, helping analysts prioritize critical incidents.
+  - **Recent Threat Reports**: Offers a detailed list of recent threat reports, categorized by type (e.g., FortiGuard Outbreak Alert, FortiGuard Signal Report), to aid in understanding the latest threats.
+  - **Top 10 Outbreak Threat Feeds**: Lists the top 10 threat feeds that contributed to detected outbreaks, helping analysts focus on the most impactful sources of threat data.
+  - **Outbreak Indicators by Type**: Analyzes outbreak IOCs to show which types of indicators (file hashes, URLs, etc.) are most commonly associated with outbreaks.
+  - **Known Exploited Vulnerabilities (KEVs)**: Tracks which CVEs are actively exploited in outbreaks, highlighting vulnerabilities that need immediate attention.
+
+> [!NOTE]
+> For optimal usage of **Threat Intel Overview** and **Threat Intel Insights Report** dashboards, configure the [Threat Intel Management](https://github.com/fortinet-fortisoar/solution-pack-threat-intel-management/blob/develop/docs/setup.md#setup-threat-intel-management-on-fortisoar) solution pack.
 
 ## Example: Outbreak Response - Progress MOVEit Transfer SQL Injection Vulnerability
 

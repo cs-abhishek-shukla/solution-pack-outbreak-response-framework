@@ -1,103 +1,30 @@
 ## What's New
 
->[!NOTE]
->This solution pack requires FortiSOAR `v7.6.1` and later.
+> [!NOTE]
+> This solution pack requires FortiSOAR `v7.6.4` and later.
 
-Enhance your outbreak response playbook with expanded threat context, smarter automation, and fine-tuned control—delivered in the latest update to the Outbreak Response Framework.
+### Enhancements
 
----
+- **Threat Intel Dashboards Integrated**: These dashboards contain outbreak and threat intelligence data, making them more relevant when included directly in the **Outbreak Response Framework**. Analysts can now have a consolidated view of outbreak intelligence without needing to switch contexts:
+  - Threat Intel Overview
+  - Threat Intel Insights Report
 
-### Wizard Enhancements
+- **Expanded Threat Actor Correlation**
 
-- Additional options on the **Installation & Notification** screen:
-  - You can specify the time window for fetching and installing recent outbreak response solution packs &mdash; streamlining automation and reducing noise from outdated threats.
+  - The **Get Outbreak Alert Threat Actors and Link Threat Reports** playbook now establishes a many-to-many relationship with the **Threat Actor** module ensuring outbreak alerts are enriched with deeper adversary context, enabling analysts to quickly see which actors are associated with which reports and alerts.
 
-  - You can also choose to install all outbreak response solution packs released to date, providing full historical coverage when needed.
+### Fixes
 
-- The wizard now supports configuring the connector on an agent.
+- **Threat Actor - Outbreak Alert Correlation**
 
----
+  - Fixed missing reverse mapping between **Threat Intel Reports** and **Outbreak Alerts**.for bidirectional visibility, so analysts can trace both from an outbreak alert to related Threat Actor information and back to its associated outbreak.
 
-### Dashboard Enhancements
+- **Comprehensive Report Correlation**
 
-In the **Outbreak Response Overview** dashboard
+  - Updated correlation logic so **Outbreak Alerts** are now linked with all relevant report types, including **FortiGuard Outbreak Alerts**, not just **Threat Signal Reports** giving analysts full coverage of outbreak intelligence, preventing gaps when different report types are ingested.
 
-- Removed the Outbreak Trend chart to streamline visual focus.
-- Updated the Recent Outbreaks Detected chart:
-  - Added new data columns for better visibility.
-  - Reorganized the order and resized column lengths for improved readability.
+- **Investigate Outbreak Alerts Schedule**
 
----
+  - Fixed an issue where the updated investigation frequency was not saved in the `Investigate_Outbreak-Alerts` schedule.
 
-### Expanded Field Coverage
-
-Introduced two new fields for enriched mapping of FortiGuard Labs data:
-
-- **Threat Actors**: Map adversaries linked to the outbreak.
-- **Threat Reports**: Reference original threat research or campaign details.
-
----
-
-### New Automation Actions
-
-- **Fetch Latest CVEs and IOC Details**: In List View, this new action updates **all outbreak alerts** with status `New` or `Tracking` by pulling the latest:
-
-  - CVE entries (including KEV mapping)
-  - IOC intelligence
-
-- **Fetch and Update Outbreak Alert Details**: Available when alerts are selected, this action performs a focused update on the selected outbreak alerts.
-
----
-
-### Improved Detail View Experience
-
-A new **Summary** tab centralizes critical alert information like:
-
-- Description, Background, and Severity
-- CVE and IOC details
-- FortiGuard URL and Cybersecurity Framework alignment
-- Threat Actors mapped via FortiGuard Labs
-
----
-
-### Playbook Enhancements
-
-- A new playbook **Get Outbreak Alert Threat Actors and Link Threat Reports** automatically associates alerts with threat actors and relevant reports, installs required response packs, and syncs updated data.
-
-- The following playbooks have been renamed for more clarity on their intended actions:
-  - *Outbreak Alert Time Frame Analysis* has been renamed to **Deactivate Expired Outbreak Alerts**
-  - *Update Outbreak Alert Details* has been renamed to **Fetch and Update Outbreak Alert Details**
-  - *Tracking Outbreak: Retrieve CVEs and IOCs* has been renamed to **Fetch and Update Active Outbreak Alerts CVEs and IOCs**                     |
-  - *Find Known Exploited Vulnerabilities (KEV) CVEs* has been renamed to **Link or Create CVEs**
-  - *> Automated Deployment > Get Outbreak CVEs and IOC Details* has been renamed to **> Automated Deployment > Get Outbreak CVEs IOCs and Threat Actors Details**
-
-#### Cleanup and Improvements
-
-- **Deprecated**: The `Update CVE Details from NIST` playbook has been removed.
-- **Manual trigger**: The `Fetch and Update Outbreak Alert Details` now starts manually.
-- **Schedule removed**: The `Outbreak_Alert_Fetch_Latest_Details` schedule has been removed and now handled via a configuration automation
-
----
-
-### Schedule & Framework Updates
-
-- The following schedules have been renamed:
-  - *`Outbreak_Alert_Fetch_Latest_Details`* has been renamed to **Ingestion_Fetch-and-Update-Outbreak-Alert-Latest-Details**
-  - *`Outbreak_Automated-Deployment-Outbreak-Alert-Response-Solution-Pack`* has been renamed to **Ingestion_Outbreak-Alert-Response-Solution-Pack**
-  - *`Outbreak_Alert-Time-Frame-Analysis`* has been renamed to **Deactivate-Expired-Outbreak-Alerts**
-  - *`Outbreak_Ingest-Tracking-Outbreak-CVEs-and-IOCs`* has been renamed to **Ingestion_Outbreak-Alert-Latest-CVEs-and-IOCs-Details**
-
-- The **Configure Outbreak Response Framework** playbook now performs the following tasks:
-
-- Triggers **Ingest Known Exploited Vulnerabilities (KEV) CVEs**
-- Activates `Investigate_Outbreak-Alerts` (now inactive by default post-install)
-- Creates the following automation schedules:
-
-  - `Ingestion_Fetch-and-Update-Outbreak-Alert-Latest-Details`
-  - `Ingestion_Outbreak-Alert-Response-Solution-Pack`
-  - `Ingestion_Outbreak-Alert-Latest-CVEs-and-IOCs-Details`
-  - `Deactivate-Expired-Outbreak-Alerts`
-
----
-
-With this update, SOC teams can respond faster to outbreaks by working with **real-time vulnerability and threat actor intelligence**, directly from FortiGuard Labs. Save time. Reduce noise. Improve context.
+- Fixed an issue where Outbreak Installation playbooks were failing intermittently.
