@@ -15,7 +15,9 @@ This section points out some actions to take after the upgrade to **Outbreak Res
 ## After Upgrade
 
 > [!Important]
-> After an upgrade, you must run the **Outbreak Response Framework** configuration wizard again.
+> After an upgrade:
+> 1. Configure the NIST NVD connector.
+> 2. Run the **Outbreak Response Framework** configuration wizard.
 
 ### Deleting Duplicate Threat Feeds
 
