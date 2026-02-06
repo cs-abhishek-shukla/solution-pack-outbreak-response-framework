@@ -1,9 +1,9 @@
 # Release Information 
 
-- **Version**: 2.2.0![](./docs/res/icon-preview.svg)
+- **Version**: 2.3.0![](./docs/res/icon-preview.svg)
 - **Certified**: Yes
 - **Publisher**: Fortinet
-- **Compatible Version**: 7.6.1 and later
+- **Compatible Version**: 7.6.4 and later
 - [Release Notes](./release_notes.md)
  
 >[!NOTE]
@@ -23,7 +23,7 @@ The Alert includes:
 
 ## Stay Informed with Outbreak Alerts
 
-With FortiSOAR™’s **Outbreak Response Framework** Solution Pack, you gain access to the all-new FortiGuard Outbreak Detection Service. Discover details about fresh threats, be it malware, ransomware, or phishing, along with actionable insights on their impact, mitigation tactics, and the perpetrators behind them.
+With FortiSOAR™'s **Outbreak Response Framework** Solution Pack, you gain access to the all-new FortiGuard Outbreak Detection Service. Discover details about fresh threats, be it malware, ransomware, or phishing, along with actionable insights on their impact, mitigation tactics, and the perpetrators behind them.
 
 ## Visualize the Threat Landscape
 
@@ -46,7 +46,7 @@ Unlock the full potential of your cybersecurity defenses with the *Outbreak Resp
 - [Overview of Outbreak Response Framework](./docs/background-information.md)
 - [Upgrade Instructions](./docs/upgrade-instructions.md)
 - [Using Pluggable Threat Hunting Framework](./docs/pluggable-threat-hunting.md)
-- [Triggering and Monitoring Playbooks Using Playbook Execution Wizard](./docs/trigger-and-monitor-pb-with-peb.md)
+- [Triggering and Monitoring Playbooks Using Playbook Execution Wizard](./docs/trigger-and-monitor-pb-with-pew.md)
 
 # Next Steps
 | [Installation](./docs/setup.md#installation) | [Configuration](./docs/setup.md#configuration) | [Usage](./docs/usage.md) | [Contents](./docs/contents.md) |

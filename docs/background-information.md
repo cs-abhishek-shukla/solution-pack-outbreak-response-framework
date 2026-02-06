@@ -20,10 +20,6 @@ The **Outbreak Response Framework** solution pack processes these alerts and com
 
 - **Indicators of Compromise (IoCs)**: A list of known IoCs associated with the outbreak, aiding in the detection and identification of the threat within affected systems .
 
-## Outbreak Dashboard
-
-The **Outbreak Response Overview** dashboard within FortiSOAR provides a visual representation of outbreak data, making it easier for security teams to understand the scope and impact of ongoing threats. This dashboard offers key insights into the outbreak, enabling a more informed and timely response.
-
 ## Threat Hunt Rules
 
 The **Outbreak Response Framework** solution pack employs a set of Threat Hunt Rules to investigate and respond to outbreak alerts. Each outbreak alert is linked to three primary types of Threat Hunt Rules:
