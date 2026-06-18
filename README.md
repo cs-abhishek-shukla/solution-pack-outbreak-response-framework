@@ -1,13 +1,14 @@
 # Release Information 
 
-- **Version**: 2.3.0![](./docs/res/icon-preview.svg)
+- **Version**: 2.3.1![](./docs/res/icon-preview.svg)
 - **Certified**: Yes
 - **Publisher**: Fortinet
-- **Compatible Version**: 7.6.4 and later
+- **Compatible Version**: 8.0.0 and later
 - [Release Notes](./release_notes.md)
  
 >[!NOTE]
 >Preview releases are a beta release. This means that the release is intended to get feedback and might not be best suited for production level deployments. The functionality might change in backward-incompatible ways or have limited support. A beta release is not subject to any SLA, Quality Assurance or deprecation policy. Feature availability and support for preview releases will continue to improve as the solution matures.
+
 
 ## Protect Your Organization with the Outbreak Response Framework
 
